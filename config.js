@@ -91,7 +91,7 @@ window.SITE_CONFIG = {
       description: 'Projects, case studies & writing',
       icon: 'globe',
       tone: 'violet',
-      href: 'https://mahendra07.wasmer.app/'
+      href: 'https://mahendra-portfolio-flax.vercel.app/'
     }
   ],
 
