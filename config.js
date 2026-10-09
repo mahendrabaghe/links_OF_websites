@@ -59,7 +59,7 @@ window.SITE_CONFIG = {
       description: 'Open-source code & repositories',
       icon: 'github',
       tone: 'slate',
-      href: 'https://github.com/mahendrabaghel7828'
+      href: 'https://github.com/mahendrabaghe'
     },
     {
       id: 'kaggle',
