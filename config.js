@@ -46,6 +46,14 @@ window.SITE_CONFIG = {
       action: 'open' // 'open' = new browser tab · 'download' = save the file
     },
     {
+      id: 'portfolio',
+      label: 'Portfolio',
+      description: 'Projects, case studies & writing',
+      icon: 'globe',
+      tone: 'violet',
+      href: 'https://mahendra-portfolio-flax.vercel.app/'
+    },
+    {
       id: 'linkedin',
       label: 'LinkedIn',
       description: 'Professional network & experience',
@@ -84,15 +92,8 @@ window.SITE_CONFIG = {
       icon: 'whatsapp',
       tone: 'green',
       href: 'wa.me' // keyword: builds wa.me link from `whatsapp` above
-    },
-    {
-      id: 'portfolio',
-      label: 'Portfolio',
-      description: 'Projects, case studies & writing',
-      icon: 'globe',
-      tone: 'violet',
-      href: 'https://mahendra-portfolio-flax.vercel.app/'
     }
+ 
   ],
 
   /* ---------- 6. SMALL SOCIAL ICON ROW ----------
