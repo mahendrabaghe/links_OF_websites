@@ -69,6 +69,15 @@ window.SITE_CONFIG = {
       tone: 'slate',
       href: 'https://github.com/mahendrabaghe'
     },
+
+    {
+      id: 'websites',
+      label: 'My Websites',
+      description: 'Explore my published websites',
+      icon: 'globe',
+      tone: 'teal',
+      href: '#websites'
+    },
     {
       id: 'kaggle',
       label: 'Kaggle',
@@ -93,10 +102,49 @@ window.SITE_CONFIG = {
       tone: 'green',
       href: 'wa.me' // keyword: builds wa.me link from `whatsapp` above
     }
- 
   ],
 
-  /* ---------- 6. SMALL SOCIAL ICON ROW ----------
+  /* ---------- 6. PUBLISHED WEBSITES ----------
+     Add one object per project. Leave this empty until you have a site to show.
+     `image` is optional; missing or unavailable images use a built-in fallback. */
+  websites: [
+    {
+      name: 'Connect-X',
+      description: 'A modern responsive website .',
+      url: 'https://mahendrabaghe.github.io/whtclon/',
+      image: 'assets/project1.png'
+    },
+
+    {
+      name: 'Easy-File-share',
+      description: 'Scan and share your data .',
+      url: 'https://mahendrabaghel78.github.io/aad/',
+      image: 'assets/project2.png'
+    },
+
+    {
+      name: 'My Digital Print Shop',
+      description: 'Scan and share your data and print with users own device.',
+      url: 'https://mahendrabaghe.github.io/qigital_print_qrr/admin',
+      image: 'assets/project3.png'
+    },
+
+    {
+      name: 'School student management system',
+      description: 'A comprehensive solution for managing school student information.',
+      url: 'https://mahendrabaghe.github.io/sch/',
+      image: 'assets/project4.png'
+    },
+
+    {
+      name: 'RAvan-Ai',
+      description: 'An AI-powered platform for data analysis and insights.',
+      url: 'https://mahendrabaghe.github.io/ravanai/',
+      image: 'assets/project5.png'
+    }
+  ],
+
+  /* ---------- 7. SMALL SOCIAL ICON ROW ----------
      Order here = order on the page. Placeholders are hidden. */
   socials: [
     { id: 'linkedin', icon: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/in/YOUR-PROFILE' },
@@ -109,13 +157,13 @@ window.SITE_CONFIG = {
     { id: 'youtube', icon: 'youtube', label: 'YouTube', href: '' }
   ],
 
-  /* ---------- 7. THEME ---------- */
+  /* ---------- 8. THEME ---------- */
   theme: {
     default: 'dark', // 'dark' | 'light' — used on first visit only
     persist: true // remembers the visitor's choice in localStorage
   },
 
-  /* ---------- 8. SEO ---------- */
+  /* ---------- 9. SEO ---------- */
   seo: {
     title: 'YOUR NAME | AI/ML Engineer & Python Developer',
     description:
@@ -125,7 +173,7 @@ window.SITE_CONFIG = {
     twitterHandle: '@YOUR-HANDLE'
   },
 
-  /* ---------- 9. FOOTER ---------- */
+  /* ---------- 10. FOOTER ---------- */
   footer: {
     year: 'auto', // 'auto' = current year, or set e.g. '2026'
     madeWithLove: true

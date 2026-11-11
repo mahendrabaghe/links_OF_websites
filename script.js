@@ -66,6 +66,18 @@
     return v;
   }
 
+  function resolveWebsiteUrl(raw) {
+    if (typeof raw !== 'string' || !raw.trim()) return null;
+    try {
+      var url = new URL(raw.trim());
+      if ((url.protocol !== 'http:' && url.protocol !== 'https:') ||
+          !url.hostname || url.username || url.password) return null;
+      return url.href;
+    } catch (e) {
+      return null;
+    }
+  }
+
   function svgIcon(id, cls) {
     return '<svg class="icon' + (cls ? ' ' + cls : '') + '" aria-hidden="true" focusable="false">' +
       '<use href="#i-' + id + '"></use></svg>';
@@ -277,7 +289,7 @@
       var tone = card.tone ? ' tone-' + card.tone : ' tone-violet';
       var icon = card.icon || 'globe';
       var download = href && card.action === 'download';
-      var external = href && !/^(mailto:|tel:)/.test(href);
+      var external = href && !/^(mailto:|tel:|#)/.test(href);
       var style = '--i:' + index++;
 
       var attrs = [];
@@ -319,7 +331,82 @@
     list.addEventListener('click', function (e) {
       var disabled = e.target.closest ? e.target.closest('.card.is-disabled') : null;
       if (disabled) e.preventDefault();
+
+      var websitesLink = e.target.closest ? e.target.closest('.card[href="#websites"]') : null;
+      if (websitesLink) {
+        e.preventDefault();
+        if (window.location.hash === '#websites') renderRoute();
+        else window.location.hash = 'websites';
+      }
     });
+  }
+
+  /* ---------- website showcase ---------- */
+
+  function initWebsites() {
+    var list = $('#project-list');
+    var empty = $('#websites-empty');
+    if (!list || !empty) return;
+
+    var websites = Array.isArray(CFG.websites) ? CFG.websites : [];
+    var html = '';
+    var index = 0;
+
+    websites.forEach(function (site) {
+      if (!site || typeof site.name !== 'string' || !site.name.trim()) return;
+      var href = resolveWebsiteUrl(site.url);
+      if (!href) return;
+
+      var image = typeof site.image === 'string' ? site.image.trim() : '';
+      if (/^(?:javascript|data|vbscript):/i.test(image)) image = '';
+      var style = '--i:' + index++;
+
+      html +=
+        '<li class="project-item" style="' + style + '">' +
+          '<a class="project-card" href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer">' +
+            '<span class="project-thumb' + (image ? '' : ' has-fallback') + '">' +
+              (image
+                ? '<img class="project-image" src="' + escapeHtml(image) + '" alt="' + escapeHtml(site.name.trim()) + ' preview" loading="lazy">'
+                : '') +
+              '<span class="project-thumb-fallback" aria-hidden="true">' + svgIcon('globe') + '</span>' +
+            '</span>' +
+            '<span class="project-content">' +
+              '<span class="project-title-row">' +
+                '<span class="project-title">' + escapeHtml(site.name.trim()) + '</span>' +
+                svgIcon('arrow', 'project-external') +
+              '</span>' +
+              '<span class="project-description">' + escapeHtml(site.description || '') + '</span>' +
+              '<span class="project-live">Live Website ' + svgIcon('arrow') + '</span>' +
+            '</span>' +
+          '</a>' +
+        '</li>';
+    });
+
+    list.innerHTML = html;
+    empty.hidden = Boolean(html);
+    list.hidden = !html;
+
+    Array.prototype.forEach.call(list.querySelectorAll('.project-image'), function (img) {
+      img.addEventListener('error', function () {
+        img.hidden = true;
+        img.parentNode.classList.add('has-fallback');
+      }, { once: true });
+    });
+  }
+
+  function renderRoute() {
+    var showWebsites = window.location.hash === '#websites';
+    var profile = $('#profile');
+    var links = $('#links');
+    var socials = $('#socials');
+    var websites = $('#websites');
+
+    if (profile) profile.hidden = showWebsites;
+    if (links) links.hidden = showWebsites;
+    if (socials) socials.hidden = showWebsites;
+    if (websites) websites.hidden = !showWebsites;
+    document.body.classList.toggle('is-websites', showWebsites);
+    if (showWebsites) window.scrollTo(0, 0);
   }
 
   /* ---------- social icons ---------- */
@@ -382,8 +469,11 @@
     initSeo();
     initProfile();
     initCards();
+    initWebsites();
     initSocials();
     initFooter();
+    window.addEventListener('hashchange', renderRoute);
+    renderRoute();
     document.body.classList.add('is-ready');
   }
 
